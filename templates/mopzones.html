@@ -4,57 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View MopZone Entries</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-    </style>
+    <link rel="stylesheet" href="/style.css">
 </head>
+
 <body>
-    <h1>MopZone Entries</h1>
-    <table id="mopzone-table" border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>ID Mop</th>
-                <th>ID Zone</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Le righe delle entry verranno inserite qui -->
-            {% for mopzone in mopzones %}
-            <tr>
-                <td>{{ mopzone.id }}</td>
-                <td>{{ mopzone.idMop }}</td>
-                <td>{{ mopzone.idZone }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+  <header class="nav">
+    <ul>
+      <li><img src="/logo.svg" alt="logoalt" width="50" height="50" class="logo"></li>
+      <li>Dei bei grafici?</li>
+      <li>Best employee</li>
+      <li>Inventario</li>
+      <li>Perdite</li>
+    </ul>
+    <ul>
+      <li>Lorem</li>
+      <li>ipsum</li>
+      <li>dolor</li>
+      <li>sit</li>
+      <li>amet</li>
+      <li>consectetur</li>
+    </ul>
+  </header>
+  <main class="content">
+    <div class="top">
+      <h1>Your Dashboard</h1>
+      <h2>MopZone Entries</h2>
+      <div class="toggle-container">
+        Lost items
+        <label class="toggle-switch">
+          <input type="checkbox" id="toggle">
+          <span class="slider"></span>
+        </label>
+        <p id="status">OFF</p>
+      </div>
+    </div>
+    <div class="scans-ct">
+      <div class="info">
+        <p>ID</p>
+        <p>MOP ID</p>
+        <p>ZONE ID</p>
+        <p>ZONE ID</p>
+      </div>
+      <!-- Le righe delle entry verranno inserite qui -->
+      {% for mopzone in mopzones %}
+      <div class="row">
+        <p>{{ mopzone.id }}</p>
+        <p>{{ mopzone.idMop }}</p>
+        <p>{{ mopzone.idZone }}</p>
+        <p>{{ mapzone.date }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </main>
+
+  <script src="upload-fake-data.js"></script>
 </body>
 </html>
