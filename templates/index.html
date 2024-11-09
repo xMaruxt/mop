@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Scanner</title>
+    <!-- Carica la libreria QR -->
+    <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
+</head>
+<body>
+    <h1>QR Scanner</h1>
+    <div id="reader" style="width:300px;"></div>
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            console.log(`Scanned code: ${decodedText}`);
+            let [idMop, idZone] = decodedText.split(',');
+
+            fetch('/add-mopzone', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ idMop: idMop, idZone: idZone })
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Inizializza Html5QrcodeScanner dopo il caricamento della libreria
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader", { fps: 10, qrbox: 250 });
+        html5QrcodeScanner.render(onScanSuccess);
+    </script>
+</body>
+</html>
