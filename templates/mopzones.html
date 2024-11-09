@@ -185,7 +185,6 @@ input:checked + .slider:before {
 <body>
   <header class="nav">
     <ul>
-      <li><img src="/templates/logo.svg" alt="logoalt" width="50" height="50" class="logo"></li>
       <li>Dei bei grafici?</li>
       <li>Best employee</li>
       <li>Inventario</li>
@@ -218,7 +217,7 @@ input:checked + .slider:before {
         <p>ID</p>
         <p>MOP ID</p>
         <p>ZONE ID</p>
-        <p>ZONE ID</p>
+        <p>Date Scan</p>
       </div>
       <!-- Le righe delle entry verranno inserite qui -->
       {% for mopzone in mopzones %}
@@ -226,7 +225,7 @@ input:checked + .slider:before {
         <p>{{ mopzone.id }}</p>
         <p>{{ mopzone.idMop }}</p>
         <p>{{ mopzone.idZone }}</p>
-        <p>{{ mapzone.date }}</p>
+        <p>{{ mopzone.dateScan }}</p>
       </div>
       {% endfor %}
     </div>

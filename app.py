@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from uuid import getnode as get_mac
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mop_zone.db'
@@ -17,6 +18,7 @@ class MopZone(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     idMop = db.Column(db.Integer, db.ForeignKey('mop.id'))
     idZone = db.Column(db.Integer, db.ForeignKey('zone.id'))
+    dateScan = db.Column(db.DateTime, default=datetime.now)
 
 # Endpoint per aggiungere una nuova entry in MopZone
 @app.route('/add-mopzone', methods=['POST'])
@@ -26,10 +28,11 @@ def add_mopzone():
     id_zone = data.get('idZone')
 
     # Ottieni il MAC address del dispositivo
-    mac = get_mac()
-    mac_address_str = ':'.join([format((mac >> elements) & 0xff, '02x') for elements in range(0, 8*6, 8)][::-1])
-    
-    print(f"MAC Address del dispositivo: {mac_address_str}")        
+    #mac = get_mac()
+    #mac_address_str = ':'.join([format((mac >> elements) & 0xff, '02x') for elements in range(0, 8*6, 8)][::-1])
+    #due dimostration pourpouse the mac addres is going to be hardcoded
+    mac_address_str = "e4:02:9b:a6:9c:8e"
+   # print({mac_address_str})        
     # Verifica se il MAC address esiste nella tabella Zone
     zone = Zone.query.filter_by(macaddress=mac_address_str).first()
 
@@ -45,10 +48,11 @@ def add_mopzone():
 # Endpoint per ottenere tutte le entry in MopZone
 @app.route('/mopzones', methods=['GET'])
 def get_mopzones():
+    
     mopzones = MopZone.query.all()  # Ottieni tutte le entry dalla tabella MopZone
     result = []
     for mopzone in mopzones:
-        result.append({"id": mopzone.id, "idMop": mopzone.idMop, "idZone": mopzone.idZone})
+        result.append({"id": mopzone.id, "idMop": mopzone.idMop, "idZone": mopzone.idZone, "dateScan": mopzone.dateScan})
     return jsonify(result)
 
 # Endpoint per visualizzare la pagina delle MopZone
